@@ -1,0 +1,2338 @@
+﻿<!doctype html>
+<html lang="pt-BR" style="scroll-behavior:smooth">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Linka — Sua empresa no automático</title>
+<meta name="description" content="Linka é a infraestrutura de crescimento automatizado para micro e pequenos negócios. WhatsApp que vende, agenda e responde sozinho." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   DESIGN TOKENS
+   ========================================================= */
+:root{
+    --ink:#000000;
+    --bg:#ffffff;
+    --brand:#34AF32;
+    --brand-shade:#258A23;
+    --brand-hover:#2881D3;
+    --brand-hover-shade:#1F6BA8;
+    --brand-dark:#003E62;
+    --line:#E8E8E8;
+    --muted:#6B6F72;
+    --soft:#F6F6F7;
+
+    --container:1200px;
+    --radius:12px;
+    --radius-lg:20px;
+    --shadow-btn:0 6px 0 0 var(--brand-shade);
+    --shadow-btn-ink:0 6px 0 0 #000;
+
+    --headline:'Inter Tight','Stack Sans Headline','Inter',-apple-system,system-ui,'Segoe UI',sans-serif;
+    --body:'Inter','Stack Sans Headline',-apple-system,system-ui,'Segoe UI',sans-serif;
+}
+
+/* =========================================================
+   RESET
+   ========================================================= */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{
+    font-family:var(--body);
+    color:var(--ink);
+    background:var(--bg);
+    font-size:16px;
+    line-height:1.55;
+    font-feature-settings:"ss01","cv11","cv02";
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+h1,h2,h3,h4,h5,h6,p{margin:0}
+ul{margin:0;padding:0;list-style:none}
+
+/* =========================================================
+   LAYOUT PRIMITIVES
+   ========================================================= */
+.container{
+    width:100%;
+    max-width:var(--container);
+    margin-inline:auto;
+    padding-inline:24px;
+}
+
+.section{padding:140px 0;border-bottom:1px solid var(--line)}
+.section--tight{padding:96px 0}
+
+.eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:var(--body);
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--brand);
+    margin-bottom:24px;
+}
+.eyebrow::before{
+    content:"";
+    width:6px;height:6px;border-radius:50%;
+    background:var(--brand);
+}
+
+h1,h2,h3{font-family:var(--headline);font-weight:800;letter-spacing:-.025em;line-height:1.04}
+h1{font-size:clamp(44px,6vw,84px)}
+h2{font-size:clamp(36px,4.6vw,60px)}
+h3{font-size:clamp(22px,2vw,28px);letter-spacing:-.015em;line-height:1.2}
+.lead{font-size:clamp(17px,1.3vw,20px);color:var(--muted);max-width:560px;line-height:1.55}
+
+/* =========================================================
+   BUTTONS — flat with 6px stacked shadow (no blur)
+   ========================================================= */
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:16px 26px;
+    border-radius:10px;
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:-.005em;
+    transition:background .25s ease, transform .12s ease, box-shadow .25s ease;
+    white-space:nowrap;
+}
+.btn--primary{
+    background:var(--brand);
+    color:#fff;
+    box-shadow:var(--shadow-btn);
+}
+.btn--primary:hover{background:var(--brand-hover);box-shadow:0 4px 0 0 var(--brand-hover-shade);transform:translateY(2px)}
+.btn--primary:active{transform:translateY(6px);box-shadow:0 0 0 0 var(--brand-hover-shade)}
+
+.btn--ink{
+    background:var(--ink);
+    color:#fff;
+    box-shadow:var(--shadow-btn-ink);
+}
+.btn--ink:hover{transform:translateY(2px);box-shadow:0 4px 0 0 #000}
+
+.btn--ghost{
+    background:transparent;
+    color:var(--ink);
+    border:1px solid var(--line);
+    box-shadow:none;
+}
+.btn--ghost:hover{border-color:var(--ink)}
+
+.btn--lg{padding:20px 32px;font-size:16px;border-radius:12px}
+
+.btn .arrow{transition:transform .2s ease}
+.btn:hover .arrow{transform:translateX(3px)}
+
+/* =========================================================
+   NAV
+   ========================================================= */
+.nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,.85);
+    backdrop-filter:saturate(180%) blur(14px);
+    -webkit-backdrop-filter:saturate(180%) blur(14px);
+    border-bottom:1px solid var(--line);
+}
+.nav__inner{
+    display:flex;align-items:center;justify-content:space-between;
+    height:72px;
+}
+.logo{
+    display:flex;align-items:center;gap:10px;
+    font-family:var(--headline);
+    font-weight:800;
+    font-size:22px;
+    letter-spacing:-.025em;
+}
+.logo__img{
+    display:block;
+    width:140px;
+    height:44px;
+    background-image:url('images/Design%20sem%20nome.svg');
+    background-size:142px 142px;
+    background-repeat:no-repeat;
+    background-position:7px -46px;
+}
+.footer__brand .logo__img{
+    width:170px;
+    height:54px;
+    background-size:175px 175px;
+    background-position:7px -57px;
+}
+.logo__mark{
+    width:30px;height:30px;border-radius:8px;
+    background:var(--brand);
+    display:grid;place-items:center;
+    box-shadow:0 4px 0 0 var(--brand-shade);
+}
+.logo__mark svg{width:16px;height:16px}
+.nav__links{display:flex;gap:36px;align-items:center}
+.nav__links a{
+    font-size:14px;font-weight:500;color:var(--ink);
+    transition:color .2s ease;
+}
+.nav__links a:hover{color:var(--brand-hover)}
+.nav__cta{display:flex;gap:12px;align-items:center}
+
+/* hamburger button */
+.nav__burger{
+    display:none;
+    flex-direction:column;justify-content:center;gap:5px;
+    width:36px;height:36px;
+    cursor:pointer;padding:6px;
+    border:1px solid var(--line);border-radius:8px;
+    background:transparent;
+}
+.nav__burger span{
+    display:block;width:100%;height:2px;
+    background:var(--ink);border-radius:2px;
+    transition:transform .25s ease, opacity .2s ease;
+}
+.nav__burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav__burger.open span:nth-child(2){opacity:0}
+.nav__burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+@media (max-width:820px){
+    .nav__links{display:none}
+    .nav__cta .btn--ghost{display:none}
+    .nav__burger{display:flex}
+    /* mobile drawer */
+    .nav__links.open{
+        display:flex;flex-direction:column;
+        position:absolute;top:72px;left:0;right:0;
+        background:#fff;
+        border-bottom:1px solid var(--line);
+        padding:24px;gap:20px;
+        box-shadow:0 12px 24px -8px rgba(0,0,0,.12);
+    }
+    .nav__links.open a{font-size:16px}
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero{
+    position:relative;
+    padding:120px 0 140px;
+    overflow-x:hidden;
+    overflow-y:visible;
+    border-bottom:1px solid var(--line);
+}
+.hero__grid{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    gap:80px;
+    align-items:center;
+}
+.hero__pill{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:8px 14px;
+    border:1px solid var(--line);
+    border-radius:99px;
+    font-size:13px;
+    font-weight:500;
+    color:var(--ink);
+    margin-bottom:28px;
+}
+.hero__pill .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:#22C55E;
+    box-shadow:0 0 0 4px rgba(34,197,94,.18);
+    animation:pulse 2.4s infinite ease-out;
+}
+@keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(34,197,94,.4)}
+    100%{box-shadow:0 0 0 8px rgba(34,197,94,0)}
+}
+.hero h1{margin-bottom:24px}
+.hero h1 .accent{
+    color:var(--brand);
+    position:relative;
+}
+.hero__lead{
+    font-size:19px;
+    color:var(--muted);
+    max-width:520px;
+    margin-bottom:36px;
+    line-height:1.55;
+}
+.hero__cta{display:flex;gap:14px;align-items:center;margin-bottom:36px}
+
+.hero__trust{
+    display:flex;align-items:center;gap:18px;
+    font-size:13px;color:var(--muted);
+}
+.hero__avatars{display:flex}
+.hero__avatars span{
+    width:32px;height:32px;border-radius:50%;
+    border:2px solid #fff;
+    margin-left:-10px;
+    background:var(--soft);
+    display:grid;place-items:center;
+    font-size:11px;font-weight:700;color:var(--ink);
+}
+.hero__avatars span:first-child{margin-left:0}
+.hero__avatars span:nth-child(1){background:#FFD9B3}
+.hero__avatars span:nth-child(2){background:#C6E2FF}
+.hero__avatars span:nth-child(3){background:#D8C8FF}
+.hero__avatars span:nth-child(4){background:#FFC9C9}
+
+@media (max-width:980px){
+    .hero{padding:80px 0 100px}
+    .hero__grid{grid-template-columns:1fr;gap:60px}
+}
+
+/* =========================================================
+   WHATSAPP MOCKUP — the hero of the page
+   ========================================================= */
+.phone{
+    position:relative;
+    width:100%;
+    max-width:360px;
+    margin-inline:auto;
+    aspect-ratio:9/19;
+    background:linear-gradient(180deg, #1A1A1A 0%, #0A0A0A 50%, #141414 100%);
+    border-radius:44px;
+    padding:14px;
+    box-shadow:
+        /* metal edge highlights — top reflexo, bottom sombra */
+        inset 0 1px 0 rgba(255,255,255,.08),
+        inset 0 -1px 1px rgba(0,0,0,.55),
+        inset 1.5px 0 0 rgba(255,255,255,.04),
+        inset -1.5px 0 0 rgba(255,255,255,.04),
+        /* hairline metálico externo */
+        0 0 0 1px rgba(255,255,255,.05),
+        /* drop shadow flutuante realista */
+        0 32px 60px -18px rgba(0,0,0,.28),
+        0 14px 28px -10px rgba(0,0,0,.16);
+}
+/* Dynamic Island style notch — pill com speaker e câmera */
+.phone::before{
+    content:"";
+    position:absolute;
+    top:24px;
+    left:50%;
+    transform:translateX(-50%);
+    width:108px;
+    height:26px;
+    background:
+        /* speaker grille — fino retângulo, levemente à esquerda */
+        linear-gradient(#1A1A1A,#1A1A1A) 38% 50%/34px 3px no-repeat,
+        /* base */
+        #0A0A0A;
+    border-radius:16px;
+    z-index:3;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.05),
+        inset 0 -1px 1px rgba(0,0,0,.55),
+        0 1px 2px rgba(0,0,0,.25);
+}
+.phone::after{
+    content:"";
+    position:absolute;
+    top:33px;
+    left:calc(50% + 22px);
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, #2a2a2a 0%, #050505 55%, #000 100%);
+    z-index:4;
+    box-shadow:
+        inset 0 0 1px rgba(255,255,255,.12),
+        0 0 0 0.5px rgba(0,0,0,.35);
+}
+/* iPhone physical side buttons */
+.phone__btn{
+    position:absolute;
+    border-radius:3px;
+    z-index:10;
+    background:linear-gradient(to right, #2c2c2c, #1a1a1a);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.07), inset 0 -1px 0 rgba(0,0,0,.5);
+}
+/* Left side: mute switch */
+.phone__btn--mute{
+    left:-4px; top:16%;
+    width:4px; height:30px;
+    border-radius:2px 0 0 2px;
+}
+/* Left side: volume up */
+.phone__btn--vol-up{
+    left:-4px; top:26%;
+    width:4px; height:52px;
+    border-radius:2px 0 0 2px;
+}
+/* Left side: volume down */
+.phone__btn--vol-down{
+    left:-4px; top:37%;
+    width:4px; height:52px;
+    border-radius:2px 0 0 2px;
+}
+/* Right side: power */
+.phone__btn--power{
+    right:-4px; top:24%;
+    width:4px; height:72px;
+    border-radius:0 2px 2px 0;
+    background:linear-gradient(to left, #2c2c2c, #1a1a1a);
+}
+
+.phone__screen{
+    width:100%;height:100%;
+    background:#ECE5DD;
+    border-radius:32px;
+    overflow:hidden;
+    display:flex;flex-direction:column;
+    position:relative;
+    box-shadow:
+        /* bezel preto entre frame e tela */
+        0 0 0 2.5px #000,
+        /* leve gloss interno do vidro */
+        inset 0 0 0 1px rgba(255,255,255,.03);
+}
+
+/* WhatsApp top bar */
+.wa__top{
+    background:#075E54;
+    color:#fff;
+    padding:48px 16px 14px;
+    display:flex;align-items:center;gap:12px;
+    flex-shrink:0;
+}
+.wa__back{font-size:18px;line-height:1;opacity:.9}
+.wa__avatar{
+    width:38px;height:38px;border-radius:50%;
+    background:#fff url('images/8.svg') center/cover no-repeat;
+    display:grid;place-items:center;
+    flex-shrink:0;
+    overflow:hidden;
+    font-size:0;
+    color:transparent;
+}
+.solution .wa__avatar{background-image:url('images/9.svg')}
+.wa__user{display:flex;flex-direction:column;flex:1;min-width:0}
+.wa__user-name{font-weight:600;font-size:15px;line-height:1.2}
+.wa__user-status{font-size:11px;opacity:.8}
+.wa__icons{display:flex;gap:18px;font-size:16px;opacity:.9}
+.wa__icons span{display:block}
+
+/* chat area */
+.wa__chat{
+    flex:1;
+    padding:14px 12px 10px;
+    display:flex;flex-direction:column;
+    gap:6px;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(0,0,0,.02) 0, transparent 30%),
+        radial-gradient(circle at 80% 60%, rgba(0,0,0,.02) 0, transparent 30%),
+        #ECE5DD;
+}
+
+.wa__day{
+    align-self:center;
+    background:#E1F2FB;
+    color:#54656F;
+    font-size:11px;
+    padding:5px 12px;
+    border-radius:8px;
+    margin:4px 0 8px;
+    box-shadow:0 1px 0 rgba(0,0,0,.04);
+}
+
+.bubble{
+    max-width:78%;
+    padding:7px 10px 7px 11px;
+    border-radius:8px;
+    font-size:13.5px;
+    line-height:1.4;
+    color:#111;
+    position:relative;
+    box-shadow:0 1px 0.5px rgba(0,0,0,.13);
+    animation:fadein .5s ease both;
+}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.bubble--in{
+    background:#fff;
+    align-self:flex-start;
+    border-top-left-radius:0;
+}
+.bubble--out{
+    background:#DCF8C6;
+    align-self:flex-end;
+    border-top-right-radius:0;
+}
+.bubble__time{
+    display:block;
+    font-size:10px;
+    color:#667781;
+    text-align:right;
+    margin-top:2px;
+    font-feature-settings:"tnum";
+}
+.bubble__time .check{color:#34B7F1;margin-left:2px;font-weight:700}
+
+.bubble--typing{
+    width:54px;
+    padding:10px 14px;
+}
+.bubble--typing .dots{display:flex;gap:3px}
+.bubble--typing .dots i{
+    width:6px;height:6px;border-radius:50%;
+    background:#90989E;
+    animation:type 1.2s infinite ease-in-out;
+}
+.bubble--typing .dots i:nth-child(2){animation-delay:.15s}
+.bubble--typing .dots i:nth-child(3){animation-delay:.3s}
+@keyframes type{
+    0%,80%,100%{transform:translateY(0);opacity:.4}
+    40%{transform:translateY(-3px);opacity:1}
+}
+
+/* input bar */
+.wa__input{
+    background:#F0F0F0;
+    padding:8px 10px;
+    display:flex;align-items:center;gap:8px;
+    flex-shrink:0;
+}
+.wa__input-field{
+    flex:1;
+    background:#fff;
+    border-radius:22px;
+    padding:9px 14px;
+    color:#9CA3AF;
+    font-size:13px;
+}
+.wa__input-mic{
+    width:38px;height:38px;border-radius:50%;
+    background:#075E54;color:#fff;
+    display:grid;place-items:center;
+    font-size:16px;
+}
+
+/* AI badge floating on phone */
+.phone__badge{
+    position:absolute;
+    top:30px;right:-22px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:10px 14px;
+    box-shadow:0 6px 0 0 var(--brand);
+    display:flex;align-items:center;gap:10px;
+    font-size:12px;font-weight:600;
+    z-index:5;
+}
+.phone__badge .pulse{
+    width:8px;height:8px;border-radius:50%;background:var(--brand);
+    box-shadow:0 0 0 0 rgba(54,41,204,.5);
+    animation:badgepulse 1.6s infinite;
+}
+@keyframes badgepulse{
+    0%{box-shadow:0 0 0 0 rgba(54,41,204,.5)}
+    100%{box-shadow:0 0 0 7px rgba(54,41,204,0)}
+}
+
+.phone__metric{
+    position:absolute;
+    bottom:60px;left:-40px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:14px 18px;
+    box-shadow:0 6px 0 0 var(--ink);
+    z-index:5;
+    min-width:200px;
+}
+.phone__metric .label{font-size:11px;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:.05em}
+.phone__metric .value{font-family:var(--headline);font-size:26px;font-weight:800;letter-spacing:-.02em;display:flex;align-items:center;gap:8px;margin-top:2px}
+.phone__metric .value .up{color:#22C55E;font-size:14px}
+
+@media (max-width:980px){
+    .phone__badge{right:0}
+    .phone__metric{left:0}
+}
+
+/* =========================================================
+   LOGO BAR
+   ========================================================= */
+.logobar{
+    padding:48px 0;
+    border-bottom:1px solid var(--line);
+}
+.logobar__label{
+    text-align:center;font-size:12px;color:var(--muted);
+    letter-spacing:.12em;text-transform:uppercase;font-weight:600;
+    margin-bottom:28px;
+}
+.logobar__row{
+    display:flex;justify-content:space-between;align-items:center;
+    gap:48px;flex-wrap:wrap;
+}
+.logobar__row span{
+    font-family:var(--headline);font-weight:700;font-size:22px;
+    color:var(--ink);opacity:.55;letter-spacing:-.02em;
+    transition:opacity .2s;
+}
+.logobar__row span:hover{opacity:1}
+
+/* =========================================================
+   PROBLEM SECTION
+   ========================================================= */
+.problem__head{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:80px;
+    align-items:end;
+    margin-bottom:80px;
+}
+.problem__head h2 .strike{
+    color:var(--ink);
+    position:relative;
+    display:inline-block;
+}
+.problem__head h2 .strike::after{
+    content:"";
+    position:absolute;
+    left:-2%;right:-2%;top:54%;
+    height:6px;
+    background:var(--brand);
+    transform:rotate(-1.5deg);
+}
+.problem__grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+}
+.problem__cell{
+    background:#fff;
+    border:1px solid #EBEBEB;
+    border-radius:16px;
+    padding:32px 28px 36px;
+    position:relative;
+    overflow:hidden;
+    transition:transform .26s cubic-bezier(0.16,1,0.3,1), box-shadow .26s ease;
+}
+.problem__cell::before{
+    content:"";
+    position:absolute;
+    top:0;left:0;right:0;
+    height:3px;
+    border-radius:16px 16px 0 0;
+}
+.problem__cell:nth-child(1)::before{background:#F59E0B}
+.problem__cell:nth-child(2)::before{background:#F43F5E}
+.problem__cell:nth-child(3)::before{background:#22C55E}
+.problem__cell:nth-child(4)::before{background:#8B5CF6}
+.problem__cell:hover{transform:translateY(-4px);box-shadow:0 20px 48px -12px rgba(0,0,0,.1)}
+.problem__icon{
+    width:52px;height:52px;
+    border-radius:12px;
+    display:grid;place-items:center;
+    margin-bottom:20px;
+}
+.problem__icon svg{width:24px;height:24px}
+.problem__cell:nth-child(1) .problem__icon{background:#FEF9EE}
+.problem__cell:nth-child(2) .problem__icon{background:#FFF1F2}
+.problem__cell:nth-child(3) .problem__icon{background:#F0FDF4}
+.problem__cell:nth-child(4) .problem__icon{background:#F5F3FF}
+.problem__cell h3{font-size:17px;font-weight:700;margin-bottom:10px;color:var(--ink);line-height:1.3}
+.problem__cell p{font-size:13.5px;color:var(--muted);line-height:1.6}
+
+@media (max-width:980px){
+    .problem__head{grid-template-columns:1fr;gap:32px}
+    .problem__grid{grid-template-columns:1fr 1fr;gap:12px}
+}
+@media (max-width:600px){
+    .problem__grid{grid-template-columns:1fr;gap:10px}
+}
+
+/* =========================================================
+   SOLUTION SECTION
+   ========================================================= */
+.solution{background:#fff}
+.solution__head{
+    text-align:center;
+    max-width:720px;margin:0 auto 80px;
+}
+.solution__head .lead{margin:24px auto 0}
+
+.solution__grid{
+    display:grid;
+    grid-template-columns:1fr 1.05fr;
+    gap:80px;
+    align-items:center;
+}
+.solution__features{display:flex;flex-direction:column;gap:28px}
+.feature{
+    display:flex;gap:18px;
+    padding:24px;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    background:#fff;
+    transition:transform .2s, border-color .2s;
+}
+.feature:hover{transform:translateY(-2px);border-color:var(--ink)}
+.feature__num{
+    flex-shrink:0;
+    width:40px;height:40px;border-radius:10px;
+    background:var(--ink);color:#fff;
+    display:grid;place-items:center;
+    font-family:var(--headline);font-weight:800;font-size:15px;
+}
+.feature h3{font-size:17px;margin-bottom:6px}
+.feature p{font-size:14px;color:var(--muted);line-height:1.55}
+
+@media (max-width:980px){
+    .solution__grid{grid-template-columns:1fr;gap:60px}
+}
+
+/* =========================================================
+   HOW IT WORKS
+   ========================================================= */
+.how{background:var(--soft)}
+.how__head{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:80px;align-items:end;margin-bottom:72px;
+}
+.how__steps{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:0;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:var(--radius-lg);
+    overflow:hidden;
+}
+.step{
+    padding:40px 32px;
+    border-right:1px solid var(--line);
+    position:relative;
+}
+.step:last-child{border-right:0}
+.step__num{
+    font-family:var(--headline);
+    font-size:13px;font-weight:700;
+    color:var(--brand);
+    display:flex;align-items:center;gap:8px;
+    margin-bottom:32px;
+}
+.step__num::before{
+    content:"";width:22px;height:1px;background:var(--brand);
+}
+.step__icon{
+    width:64px;height:52px;
+    border-radius:10px;
+    background:#DCFCE7;
+    display:grid;place-items:center;
+    margin-bottom:24px;
+}
+.step__icon svg{width:26px;height:26px;color:#22C55E}
+.step h3{font-size:19px;margin-bottom:8px}
+.step p{font-size:14px;color:var(--muted);line-height:1.55}
+
+@media (max-width:980px){
+    .how__head{grid-template-columns:1fr;gap:32px}
+    .how__steps{grid-template-columns:1fr 1fr}
+    .step{border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .step:nth-child(2){border-right:0}
+    .step:nth-child(3),.step:nth-child(4){border-bottom:0}
+    .step:nth-child(4){border-right:0}
+}
+@media (max-width:600px){
+    .how__steps{grid-template-columns:1fr}
+    .step{border-right:0!important}
+    .step:not(:last-child){border-bottom:1px solid var(--line)}
+}
+
+/* =========================================================
+   BENEFITS
+   ========================================================= */
+.benefits__head{max-width:720px;margin-bottom:80px}
+.benefits__grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:0;
+    border-top:1px solid var(--line);
+    border-left:1px solid var(--line);
+}
+.benefit{
+    display:grid;
+    grid-template-columns:60px 1fr;
+    gap:24px;
+    padding:48px 32px;
+    border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    align-items:start;
+}
+.benefit__icon{
+    width:52px;height:52px;
+    border-radius:12px;
+    background:#DCFCE7;
+    display:grid;place-items:center;
+    flex-shrink:0;
+}
+.benefit__icon svg{width:24px;height:24px}
+.benefit h3{font-size:22px;margin-bottom:10px}
+.benefit p{color:var(--muted);font-size:15px;line-height:1.6}
+
+@media (max-width:780px){
+    .benefits__grid{grid-template-columns:1fr}
+    .benefit{border-right:0!important}
+}
+
+
+/* =========================================================
+   MID CTA STRIP
+   ========================================================= */
+.mid-cta{
+    padding:40px 0;
+    background:linear-gradient(135deg,#f0fdf4 0%,#dcfce7 100%);
+    border-top:1px solid #bbf7d0;
+    border-bottom:1px solid #bbf7d0;
+}
+.mid-cta__inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+    flex-wrap:wrap;
+}
+.mid-cta__text{
+    font-size:17px;
+    color:var(--ink);
+    margin:0;
+    flex:1;
+    min-width:200px;
+}
+.btn--md{
+    padding:13px 28px;
+    font-size:15px;
+    white-space:nowrap;
+}
+
+/* =========================================================
+   FINAL CTA
+   ========================================================= */
+.final{
+    padding:140px 0;
+    background:#fff;
+    text-align:center;
+    border-bottom:1px solid var(--line);
+}
+.final__inner{max-width:780px;margin:0 auto}
+.final h2{
+    margin-bottom:24px;
+    font-size:clamp(40px,5vw,68px);
+}
+.final h2 .hl{color:var(--brand)}
+.final p{
+    font-size:19px;color:var(--muted);
+    max-width:560px;margin:0 auto 40px;
+    line-height:1.55;
+}
+.final__cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.final__note{
+    margin-top:28px;font-size:13px;color:var(--muted);
+}
+
+/* =========================================================
+   TRUST BAR
+   ========================================================= */
+.trust-bar{
+    background:#f8f8f8;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:32px 0;
+}
+.trust-bar__grid{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px 32px;
+}
+.trust-badge{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+.trust-badge__icon{
+    width:36px;height:36px;
+    border-radius:8px;
+    background:#fff;
+    border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+}
+.trust-badge__icon svg{
+    width:18px;height:18px;
+    color:#22C55E;
+}
+.trust-badge__text{
+    display:flex;flex-direction:column;
+}
+.trust-badge__text strong{
+    font-size:12px;font-weight:700;color:var(--ink);line-height:1.2;
+}
+.trust-badge__text span{
+    font-size:11px;color:var(--muted);
+}
+@media(max-width:768px){
+    .trust-bar{padding:24px 0}
+    .trust-bar__grid{gap:10px 20px;justify-content:flex-start}
+    .trust-badge__icon{width:30px;height:30px}
+    .trust-badge__icon svg{width:14px;height:14px}
+    .trust-badge__text strong{font-size:11px}
+    .trust-badge__text span{font-size:10px}
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer{padding:72px 0 40px;background:#fff}
+.footer__top{
+    display:grid;
+    grid-template-columns:1.2fr 1fr 1fr 1fr;
+    gap:60px;
+    padding-bottom:48px;
+    border-bottom:1px solid var(--line);
+}
+.footer__brand p{
+    color:var(--muted);font-size:14px;line-height:1.6;
+    margin-top:18px;max-width:280px;
+}
+.footer__col h4{
+    font-family:var(--body);
+    font-size:12px;font-weight:600;
+    text-transform:uppercase;letter-spacing:.08em;
+    color:var(--ink);margin-bottom:18px;
+}
+.footer__col ul{display:flex;flex-direction:column;gap:12px}
+.footer__col a{font-size:14px;color:var(--muted)}
+.footer__col a:hover{color:var(--ink)}
+.footer__bottom{
+    padding-top:32px;
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:13px;color:var(--muted);
+}
+.footer__bottom .links{display:flex;gap:24px}
+@media (max-width:880px){
+    .footer__top{grid-template-columns:1fr 1fr;gap:48px}
+    .footer__bottom{flex-direction:column;gap:16px;text-align:center}
+}
+
+/* =========================================================
+   TOP BAR — urgência silenciosa
+   ========================================================= */
+.topbar{
+    background:var(--ink);
+    padding:10px 0;
+    text-align:center;
+    font-size:13px;
+    color:rgba(255,255,255,.85);
+    letter-spacing:-.01em;
+}
+.topbar__dot{
+    display:inline-block;
+    width:7px;height:7px;border-radius:50%;
+    background:#22C55E;
+    margin-right:8px;
+    vertical-align:middle;
+    animation:topbarpulse 2s infinite ease-out;
+}
+@keyframes topbarpulse{
+    0%{box-shadow:0 0 0 0 rgba(34,197,94,.5)}
+    100%{box-shadow:0 0 0 6px rgba(34,197,94,0)}
+}
+
+/* =========================================================
+   DEPOIMENTOS
+   ========================================================= */
+.testimonials{
+    background:var(--ink);
+    padding:120px 0;
+    color:#fff;
+}
+.testimonials__head{
+    text-align:center;
+    margin-bottom:64px;
+}
+.testimonials__head h2{color:#fff}
+.testimonials__grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+}
+.tcard{
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:var(--radius);
+    padding:32px 28px;
+    display:flex;flex-direction:column;gap:20px;
+}
+.tcard__quote{
+    font-size:15px;
+    line-height:1.6;
+    color:rgba(255,255,255,.85);
+    flex:1;
+}
+.tcard__author{
+    display:flex;align-items:center;gap:14px;
+}
+.tcard__avatar{
+    width:40px;height:40px;border-radius:50%;
+    display:grid;place-items:center;
+    font-weight:700;font-size:15px;
+    flex-shrink:0;
+}
+.tcard__name{font-weight:600;font-size:14px;color:#fff}
+.tcard__role{font-size:13px;color:rgba(255,255,255,.5)}
+.tcard__verified{
+    font-size:11px;color:rgba(255,255,255,.4);
+    margin-top:4px;
+}
+@media (max-width:880px){
+    .testimonials__grid{grid-template-columns:1fr}
+}
+
+/* =========================================================
+   VISUAL ACCENTS — bordas de urgência e resultado
+   ========================================================= */
+@media(min-width:769px){.carousel-clone{display:none!important}}
+
+/* =========================================================
+   CTA PULSE — botão com pulso suave
+   ========================================================= */
+.btn--primary{animation:ctapulse 2.8s infinite ease-out}
+@keyframes ctapulse{
+    0%{box-shadow:var(--shadow-btn),0 0 0 0 rgba(52,175,50,.35)}
+    70%{box-shadow:var(--shadow-btn),0 0 0 10px rgba(52,175,50,0)}
+    100%{box-shadow:var(--shadow-btn),0 0 0 0 rgba(52,175,50,0)}
+}
+.btn--primary:hover{animation:none}
+
+/* =========================================================
+   COUNTER ANIMATION
+   ========================================================= */
+.counter-row{
+    display:flex;align-items:center;gap:14px;
+    margin-top:48px;padding-top:48px;
+    border-top:1px solid rgba(255,255,255,.12);
+}
+.counter-row__value{
+    font-family:var(--headline);
+    font-size:clamp(48px,6vw,72px);
+    font-weight:800;
+    color:#fff;
+    letter-spacing:-.04em;
+    line-height:1;
+}
+.counter-row__value .unit{font-size:.45em;color:#6CD968;margin-left:4px}
+.counter-row__label{
+    font-size:15px;color:rgba(255,255,255,.6);
+    max-width:260px;line-height:1.5;
+}
+
+/* =========================================================
+   MOBILE — max-width 768px
+   ========================================================= */
+@media (max-width:768px){
+    /* ---- Global ---- */
+    .container{padding-inline:20px}
+    .section{padding:52px 0}
+    .section--tight{padding:40px 0}
+    .eyebrow{margin-bottom:14px;font-size:12px}
+
+    /* ---- Typography ---- */
+    h1{font-size:clamp(32px,8.5vw,42px);line-height:1.08}
+    h2{font-size:clamp(26px,7vw,36px);line-height:1.1}
+    h3{font-size:17px;line-height:1.25}
+    .lead{font-size:15px}
+    .hero__lead{font-size:15px;line-height:1.6}
+
+    /* ---- Topbar ---- */
+    .topbar{font-size:11.5px;padding:9px 20px;line-height:1.4}
+
+    /* ---- Hero: copy-first, phone hidden ---- */
+    .hero{padding:36px 0 44px}
+    .hero__grid{grid-template-columns:1fr;gap:0}
+    .hero__visual{display:block;margin-top:24px;text-align:center}
+    .hero__visual .phone{width:78vw;max-width:78vw;margin:0 auto;display:block}
+    .hero__pill{font-size:12px;padding:6px 12px;margin-bottom:18px}
+    .hero h1{margin-bottom:14px}
+    .hero__lead{margin-bottom:24px;max-width:100%}
+    .hero__cta{flex-direction:column;align-items:stretch;gap:10px;margin-bottom:22px}
+    .btn--lg{width:100%;justify-content:center;padding:16px 24px}
+    .hero__trust{flex-wrap:wrap;gap:10px;font-size:12px}
+
+    /* ---- Logobar ---- */
+    .logobar{padding:24px 0}
+    .logobar__row{gap:16px 28px;flex-wrap:wrap;justify-content:center}
+    .logobar__row span{font-size:17px}
+
+    /* ---- Problem: 2x2 grid, compact ---- */
+    .problem__head{grid-template-columns:1fr;gap:14px;margin-bottom:28px}
+    .problem__grid{grid-template-columns:1fr 1fr;gap:10px}
+    .problem__cell{padding:18px 16px 20px;border-radius:14px}
+    .problem__icon{width:36px;height:36px;margin-bottom:12px;border-radius:8px}
+    .problem__icon svg{width:16px;height:16px}
+    .problem__cell h3{font-size:13px;margin-bottom:6px;line-height:1.3}
+    .problem__cell p{font-size:11px;line-height:1.5;color:var(--muted)}
+
+    /* ---- Solution: features as horizontal scroll, phone hidden ---- */
+    .solution__head{margin-bottom:28px;text-align:left}
+    .solution__head .lead{margin-top:10px}
+    .solution__grid{grid-template-columns:1fr;gap:0}
+    .solution__grid>.phone{display:none}
+    .solution__features{
+        display:flex;
+        flex-direction:row;
+        overflow-x:auto;
+        overflow-y:visible;
+        gap:10px;
+        scroll-snap-type:x mandatory;
+        -webkit-overflow-scrolling:touch;
+        scrollbar-width:none;
+        padding-bottom:4px;
+        padding-right:20px;
+    }
+    .solution__features::-webkit-scrollbar{display:none}
+    .feature{min-width:72vw;max-width:72vw;flex-shrink:0;scroll-snap-align:start;padding:14px 12px;align-self:stretch}
+    .feature h3{font-size:12px;margin-bottom:4px}
+    .feature p{font-size:11px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+    /* fade hint — more content to right */
+    .solution__features::after{
+        content:"";
+        flex-shrink:0;
+        width:1px;
+    }
+
+    /* ---- How it works: horizontal scroll ---- */
+    .how__head{grid-template-columns:1fr;gap:14px;margin-bottom:28px}
+    .how__steps{
+        display:flex;
+        flex-direction:row;
+        overflow-x:auto;
+        overflow-y:hidden;
+        scroll-snap-type:x mandatory;
+        -webkit-overflow-scrolling:touch;
+        scrollbar-width:none;
+        border-radius:var(--radius-lg);
+        gap:0;
+    }
+    .how__steps::-webkit-scrollbar{display:none}
+    .step{min-width:72vw;max-width:72vw;flex-shrink:0;scroll-snap-align:start;padding:20px 14px;border-right:1px solid var(--line)!important;border-bottom:none!important;align-self:stretch}
+    .step:last-child{border-right:none!important}
+    .step__icon{width:36px;height:32px;margin-bottom:10px}
+    .step__icon svg{width:16px;height:16px}
+    .step__num{margin-bottom:12px}
+    .step h3{font-size:13px}
+    .step p{font-size:12px;line-height:1.5}
+
+    /* ---- Benefits: quadrados 2x2 ---- */
+    .benefits__head{margin-bottom:24px}
+    .benefits__grid{grid-template-columns:1fr 1fr;gap:0}
+    .benefit{
+        display:flex;flex-direction:column;align-items:center;
+        justify-content:center;text-align:center;
+        grid-template-columns:unset;
+        padding:20px 12px;
+        aspect-ratio:1;
+        border-right:0!important;
+        gap:10px;
+    }
+    .benefit:nth-child(odd){border-right:1px solid var(--line)!important}
+    .benefit__icon{width:44px;height:44px;border-radius:12px;flex-shrink:0}
+    .benefit__icon svg{width:20px;height:20px}
+    .benefit h3{font-size:13px;margin-bottom:0;line-height:1.35}
+    .benefit p{display:none}
+
+    /* ---- Testimonials: horizontal scroll ---- */
+    .testimonials{padding:52px 0}
+    .testimonials__head{margin-bottom:28px}
+    .testimonials__grid{
+        display:flex;
+        overflow-x:auto;
+        gap:12px;
+        scroll-snap-type:x mandatory;
+        -webkit-overflow-scrolling:touch;
+        scrollbar-width:none;
+        grid-template-columns:unset;
+        padding-bottom:4px;
+        padding-right:20px;
+    }
+    .testimonials__grid::-webkit-scrollbar{display:none}
+    .tcard{min-width:72vw;max-width:72vw;flex-shrink:0;scroll-snap-align:start;padding:16px 14px}
+    .tcard__quote{font-size:12px;line-height:1.5}
+    .tcard__name{font-size:12px}
+    .tcard__role{font-size:11px}
+    .tcard__verified{font-size:10px}
+
+    /* ---- Final CTA ---- */
+    /* ---- Mid CTA Strip ---- */
+    .mid-cta{padding:28px 0}
+    .mid-cta__inner{flex-direction:column;align-items:stretch;gap:16px;text-align:center}
+    .mid-cta__text{font-size:15px}
+    .btn--md{width:100%;justify-content:center;padding:14px 24px}
+
+    .final{padding:52px 0}
+    .final h2{font-size:clamp(26px,7vw,36px);margin-bottom:14px}
+    .final p{font-size:15px;margin-bottom:24px}
+    .final__cta{flex-direction:column;align-items:stretch}
+    .final__note{font-size:12px;margin-top:20px}
+
+    /* ---- Counter ---- */
+    .counter-row{flex-direction:column;align-items:flex-start;gap:6px;margin-top:28px;padding-top:28px}
+    .counter-row__value{font-size:clamp(38px,9vw,52px)}
+    .counter-row__label{font-size:14px}
+
+    /* ---- Footer ---- */
+    .footer{padding:40px 0 24px}
+    .footer__top{grid-template-columns:1fr 1fr;gap:32px 20px;padding-bottom:24px}
+    .footer__brand{grid-column:1 / -1}
+    .footer__brand p{max-width:100%}
+    .footer__bottom{flex-direction:column;gap:12px;text-align:center}
+}
+
+
+/* =========================================================
+   PREMIUM ANIMATIONS — Stripe / Linear Level
+   ========================================================= */
+
+/* ---- Phone: mobile adjustments ---- */
+@media(max-width:768px){
+    .hero__visual .phone__badge{font-size:10px;padding:7px 10px;top:22px;right:-10px;gap:6px}
+    .hero__visual .phone__badge .pulse{width:6px;height:6px}
+    .hero__visual .wa__top{padding:38px 10px 10px}
+    .hero__visual .wa__user-name{font-size:13px}
+    .hero__visual .wa__user-status{font-size:10px}
+    .hero__visual .wa__avatar{width:30px;height:30px}
+    .hero__visual .bubble{font-size:11.5px;padding:5px 8px;max-width:85%}
+    .hero__visual .bubble__time{font-size:9px}
+    .hero__visual .wa__day{font-size:10px;padding:3px 8px}
+    .hero__visual .wa__chat{gap:4px;padding:10px 8px 6px}
+    .hero__visual .wa__input{padding:6px 8px}
+    .hero__visual .wa__input-field{font-size:11px;padding:6px 10px}
+    .hero__visual .wa__input-mic{width:30px;height:30px;font-size:13px}
+}
+
+/* ---- Reduced motion: always respect user preference ---- */
+@media (prefers-reduced-motion: reduce) {
+    *,::before,::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+    .hero__pill,.hero h1,.hero__lead,.hero__cta,.hero__trust,.hero__visual,.hero__copy>div{opacity:1!important;transform:none!important}
+}
+
+/* ---- Hero: initial state (set by CSS, reset by JS after load) ---- */
+.hero__pill,
+.hero h1,
+.hero__lead,
+.hero__cta,
+.hero__trust,
+.hero__copy > div[style],
+.hero__visual {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+@keyframes heroReveal {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.page-loaded .hero__pill       { animation: heroReveal 0.65s cubic-bezier(0.16,1,0.3,1) 0.06s both; }
+.page-loaded .hero h1          { animation: heroReveal 0.75s cubic-bezier(0.16,1,0.3,1) 0.14s both; }
+.page-loaded .hero__lead       { animation: heroReveal 0.70s cubic-bezier(0.16,1,0.3,1) 0.24s both; }
+.page-loaded .hero__copy>div[style] { animation: heroReveal 0.60s cubic-bezier(0.16,1,0.3,1) 0.30s both; }
+.page-loaded .hero__cta        { animation: heroReveal 0.65s cubic-bezier(0.16,1,0.3,1) 0.34s both; }
+.page-loaded .hero__trust      { animation: heroReveal 0.60s cubic-bezier(0.16,1,0.3,1) 0.44s both; }
+.page-loaded .hero__visual     { animation: heroReveal 0.90s cubic-bezier(0.16,1,0.3,1) 0.18s both; }
+
+/* ---- Hero phone: subtle float ---- */
+@keyframes phoneFloat {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-9px); }
+}
+.page-loaded .hero__visual .phone {
+    animation: phoneFloat 6.5s cubic-bezier(0.37,0,0.63,1) 1.15s infinite;
+}
+
+/* ---- Scroll reveal base ---- */
+.reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition:
+        opacity  0.7s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+}
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ---- Enhanced nav ---- */
+.nav { transition: box-shadow 0.3s ease; }
+.nav__links a {
+    position: relative;
+    transition: color 0.2s ease;
+}
+.nav__links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0;
+    width: 0; height: 1.5px;
+    background: var(--brand);
+    border-radius: 2px;
+    transition: width 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+.nav__links a:hover::after { width: 100%; }
+
+/* ---- Button interactions ---- */
+.btn {
+    transition:
+        background .22s ease,
+        transform .16s cubic-bezier(0.16,1,0.3,1),
+        box-shadow .22s ease,
+        color .22s ease !important;
+}
+.btn:active { transform: translateY(2px) scale(0.985) !important; }
+
+.btn--primary:hover {
+    background: var(--brand-hover) !important;
+    box-shadow: 0 4px 0 0 var(--brand-hover-shade),
+                0 10px 28px -6px rgba(52,175,50,.4) !important;
+    transform: translateY(-2px) !important;
+    animation: none !important;
+}
+.btn--ink:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 0 0 #000,
+                0 10px 28px -6px rgba(0,0,0,.28) !important;
+}
+.btn--ghost:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 14px -4px rgba(0,0,0,.12) !important;
+}
+
+/* ---- Card hover lifts ---- */
+.feature {
+    transition:
+        transform .28s cubic-bezier(0.16,1,0.3,1),
+        border-color .2s ease,
+        box-shadow .28s cubic-bezier(0.16,1,0.3,1) !important;
+}
+.feature:hover {
+    transform: translateY(-5px) !important;
+    border-color: rgba(0,0,0,.15) !important;
+    box-shadow: 0 18px 44px -12px rgba(0,0,0,.14),
+                0 4px 12px -4px rgba(0,0,0,.08) !important;
+}
+
+.problem__cell {
+    transition: transform .26s cubic-bezier(0.16,1,0.3,1),
+                box-shadow .26s ease;
+}
+
+.tcard {
+    transition:
+        transform .28s cubic-bezier(0.16,1,0.3,1),
+        background .2s ease,
+        border-color .2s ease,
+        box-shadow .28s ease;
+}
+.tcard:hover {
+    transform: translateY(-5px);
+    background: rgba(255,255,255,.1);
+    border-color: rgba(255,255,255,.16);
+    box-shadow: 0 24px 48px -16px rgba(0,0,0,.5);
+}
+
+.benefit {
+    transition: background .2s ease,
+                transform .25s cubic-bezier(0.16,1,0.3,1);
+}
+.benefit:hover {
+    background: var(--soft);
+    transform: translateX(5px);
+}
+
+.step { transition: background .2s ease; }
+.step:hover { background: rgba(34,197,94,.03); }
+
+/* ---- Logobar hover ---- */
+.logobar__row span {
+    transition: opacity .2s ease, transform .22s cubic-bezier(0.16,1,0.3,1);
+    cursor: default;
+}
+.logobar__row span:hover {
+    opacity: 1 !important;
+    transform: translateY(-2px);
+}
+
+/* ---- Phone badge ---- */
+.phone__badge {
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+.phone__badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 0 0 var(--brand);
+}
+
+/* ---- Softer borders ---- */
+.section       { border-bottom-color: rgba(0,0,0,.07); }
+.nav           { border-bottom-color: rgba(0,0,0,.07); }
+.hero          { border-bottom-color: rgba(0,0,0,.07); }
+.logobar       { border-bottom-color: rgba(0,0,0,.07); }
+
+/* ---- Focus states ---- */
+a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* ---- Counter number span ---- */
+.count-num { display: inline; }
+
+/* ---- Mobile: lighter, faster ---- */
+@media (max-width: 768px) {
+    .reveal { transform: translateY(16px); transition-duration: .55s; }
+    .feature:hover,
+    .problem__cell:hover,
+    .tcard:hover { transform: none !important; box-shadow: none !important; }
+    .benefit:hover { transform: none; }
+    @keyframes phoneFloat {
+        0%,100% { transform: translateY(0); }
+        50%      { transform: translateY(-5px); }
+    }
+}
+
+</style>
+</head>
+
+<body id="top">
+
+<!-- ============================================
+     TOP BAR — urgência silenciosa
+     ============================================ -->
+<div class="topbar">
+    <span class="topbar__dot"></span>
+    Linka está vendendo para <strong>47 negócios</strong> agora mesmo — o seu ainda responde na mão?
+</div>
+
+<!-- ============================================
+     NAV
+     ============================================ -->
+<header class="nav">
+    <div class="container nav__inner">
+        <a href="#top" class="logo" aria-label="Linka">
+            <span class="logo__img" role="img" aria-label="Linka"></span>
+        </a>
+        <nav class="nav__links" aria-label="Principal">
+            <a href="#produto">Produto</a>
+            <a href="#como-funciona">Como funciona</a>
+            <a href="#beneficios">Benefícios</a>
+            <a href="#preco">Preço</a>
+        </nav>
+        <button class="nav__burger" aria-label="Menu" onclick="this.classList.toggle('open');this.previousElementSibling.classList.toggle('open')">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</header>
+
+<!-- ============================================
+     HERO
+     ============================================ -->
+<section class="hero">
+    <div class="container hero__grid">
+        <div class="hero__copy">
+            <span class="hero__pill">
+                <span class="dot" aria-hidden="true"></span>
+                IA que vende enquanto você vive
+            </span>
+            <h1>
+                Enquanto você descansa,<br>
+                <span class="accent">a Linka está vendendo</span><br>
+                pra você.
+            </h1>
+            <p class="hero__lead">
+                Cada mensagem sem resposta é uma venda perdida. A Linka responde em segundos, fecha pedidos e agenda horários — sem você precisar tocar no celular.
+            </p>
+            <div class="hero__cta">
+                <a href="https://wa.me/5511972986819?text=Ol%C3%A1!%20%F0%9F%91%8B%20Quero%20automatizar%20meu%20WhatsApp%20e%20atender%20mais%20clientes.%20Pode%20me%20ajudar%3F" target="_blank" rel="noopener" class="btn btn--primary btn--lg">
+                    Começar agora
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+            <div style="font-size:13px;color:var(--muted);margin-top:-20px;margin-bottom:24px">
+                Ativo em 10 minutos · Suporte incluído
+            </div>
+        </div>
+
+        <!-- WhatsApp Mockup -->
+        <div class="hero__visual">
+            <div class="phone" aria-hidden="true">
+                <!-- iPhone physical buttons -->
+                <div class="phone__btn phone__btn--mute"></div>
+                <div class="phone__btn phone__btn--vol-up"></div>
+                <div class="phone__btn phone__btn--vol-down"></div>
+                <div class="phone__btn phone__btn--power"></div>
+
+                <div class="phone__badge">
+                    <span class="pulse"></span>
+                    Linka IA respondendo
+                </div>
+
+                <div class="phone__screen">
+
+                    <!-- WhatsApp top bar -->
+                    <div class="wa__top">
+                        <span class="wa__back">‹</span>
+                        <div class="wa__avatar">L</div>
+                        <div class="wa__user">
+                            <span class="wa__user-name">Cliente Pedro</span>
+                            <span class="wa__user-status">online</span>
+                        </div>
+                        <div class="wa__icons">
+                            <span>📹</span><span>📞</span>
+                        </div>
+                    </div>
+
+                    <!-- chat -->
+                    <div class="wa__chat">
+                        <div class="wa__day">HOJE</div>
+
+                        <div class="bubble bubble--in">
+                            Oi, vocês estão abertos hoje?
+                            <span class="bubble__time">14:32</span>
+                        </div>
+
+                        <div class="bubble bubble--out">
+                            Oi! 😊 Estamos sim, hoje atendemos das 8h às 19h. Me fala como posso te ajudar.
+                            <span class="bubble__time">14:32 <span class="check">✓✓</span></span>
+                        </div>
+
+                        <div class="bubble bubble--in">
+                            Quanto fica pra lavar 5 peças?
+                            <span class="bubble__time">14:33</span>
+                        </div>
+
+                        <div class="bubble bubble--out">
+                            Para 5 peças, fica <strong>R$ 45</strong> já com lavagem e secagem. Se quiser, também posso agendar a coleta pra você.
+                            <span class="bubble__time">14:33 <span class="check">✓✓</span></span>
+                        </div>
+
+                        <div class="bubble bubble--in">
+                            Pode sim 🙏
+                            <span class="bubble__time">14:33</span>
+                        </div>
+
+                        <div class="bubble bubble--out">
+                            Perfeito! Me passa seu endereço e o melhor horário pra coleta.
+                            <span class="bubble__time">14:34 <span class="check">✓✓</span></span>
+                        </div>
+
+                        <div class="bubble bubble--typing bubble--in" aria-label="digitando">
+                            <span class="dots"><i></i><i></i><i></i></span>
+                        </div>
+                    </div>
+
+                    <!-- input -->
+                    <div class="wa__input">
+                        <span style="color:#54656F">😊</span>
+                        <div class="wa__input-field">Mensagem</div>
+                        <div class="wa__input-mic">🎤</div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     LOGO BAR
+     ============================================ -->
+<section class="logobar">
+    <div class="container">
+        <div class="logobar__label">Usado por negócios em todo o Brasil</div>
+        <div class="logobar__row">
+            <span>Lavanda &amp; Co</span>
+            <span>Studio Bia</span>
+            <span>Padaria Real</span>
+            <span>Barber Norte</span>
+            <span>Pet Doce</span>
+            <span>Clínica Vida</span>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     PROBLEM
+     ============================================ -->
+<section class="section">
+    <div class="container">
+        <div class="problem__head">
+            <div>
+                <span class="eyebrow">O problema</span>
+                <h2>Você trabalha o <span class="strike">dobro</span> e fatura a <span style="color:#22C55E">metade</span> do que deveria.</h2>
+            </div>
+            <p class="lead">
+                Não é falta de cliente. É falta de resposta. Enquanto você não vê a mensagem, o concorrente já fechou a venda.
+            </p>
+        </div>
+
+        <div class="problem__grid">
+            <div class="problem__cell">
+                <div class="problem__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5"/><circle cx="12" cy="16" r=".5" fill="#F59E0B"/></svg>
+                </div>
+                <h3>Resposta que não chega</h3>
+                <p>Nos primeiros 5 minutos, o cliente ainda está quente. Depois disso, foi buscar alguém que respondeu antes.</p>
+            </div>
+            <div class="problem__cell">
+                <div class="problem__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#F43F5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="m9.5 9.5 5 5M14.5 9.5l-5 5"/></svg>
+                </div>
+                <h3>WhatsApp fora de controle</h3>
+                <p>Dezenas de conversas ao mesmo tempo. Você se perde nas mensagens. A venda se perde também.</p>
+            </div>
+            <div class="problem__cell">
+                <div class="problem__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke-dasharray="4 3"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <h3>Invisível pra quem procura</h3>
+                <p>Sem avaliações, sem presença. O cliente novo vai direto pro concorrente que aparece antes de você.</p>
+            </div>
+            <div class="problem__cell">
+                <div class="problem__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" opacity=".5"/><path d="M16 3.13a4 4 0 0 1 0 7.75" opacity=".35"/><path d="M21 21v-2a4 4 0 0 0-3-3.87" opacity=".35"/></svg>
+                </div>
+                <h3>Comprou uma vez, sumiu</h3>
+                <p>Sem reativação automática, 80% dos clientes compram uma vez só. Dinheiro que devia ser seu.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     SOLUTION (WOW)
+     ============================================ -->
+<section class="section solution" id="produto">
+    <div class="container">
+        <div class="solution__head">
+            <span class="eyebrow">A solução</span>
+            <h2>A atendente que não dorme,<br>não erra e <span style="color:#22C55E">não precisa de salário.</span></h2>
+            <p class="lead">
+                Linka aprende seus preços, horários e serviços. Responde como gente, fecha a venda e confirma o agendamento — em português real, sem soar robô.
+            </p>
+        </div>
+
+        <div class="solution__grid">
+            <div class="solution__features">
+                <div class="feature">
+                    <div class="feature__num">01</div>
+                    <div>
+                        <h3>Responde antes que ele feche a conversa</h3>
+                        <p>Em menos de 5 segundos — às 2h da madrugada, no domingo, no feriado. Mais rápido do que qualquer humano consegue.</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="feature__num">02</div>
+                    <div>
+                        <h3>Conhece seu negócio de cor</h3>
+                        <p>Preços, horários, serviços, políticas. Linka nunca improvisa nem inventa. Só o que você ensinou, do jeito que você definiu.</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="feature__num">03</div>
+                    <div>
+                        <h3>Do "oi" ao pedido confirmado</h3>
+                        <p>Conduz a conversa com naturalidade até fechar a venda ou marcar o horário. Sem você tocar no celular.</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="feature__num">04</div>
+                    <div>
+                        <h3>Controle total quando quiser</h3>
+                        <p>Toda conversa visível em tempo real. Entre com um toque, pause a IA quando precisar. O comando é sempre seu.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- secondary visual: simplified phone or mini chat -->
+            <div class="phone" style="max-width:360px">
+                <!-- iPhone physical buttons -->
+                <div class="phone__btn phone__btn--mute"></div>
+                <div class="phone__btn phone__btn--vol-up"></div>
+                <div class="phone__btn phone__btn--vol-down"></div>
+                <div class="phone__btn phone__btn--power"></div>
+                <div class="phone__screen">
+                    <div class="wa__top">
+                        <span class="wa__back">‹</span>
+                        <div class="wa__avatar">B</div>
+                        <div class="wa__user">
+                            <span class="wa__user-name">Cliente Gustavo</span>
+                            <span class="wa__user-status">online</span>
+                        </div>
+                        <div class="wa__icons"><span>📹</span><span>📞</span></div>
+                    </div>
+                    <div class="wa__chat">
+                        <div class="wa__day">HOJE</div>
+                        <div class="bubble bubble--in">
+                            tem horário pra hoje?
+                            <span class="bubble__time">09:14</span>
+                        </div>
+                        <div class="bubble bubble--out">
+                            Bom dia, Gustavo! Tenho <strong>11h, 14h30 e 17h</strong> hoje. Qual prefere?
+                            <span class="bubble__time">09:14 <span class="check">✓✓</span></span>
+                        </div>
+                        <div class="bubble bubble--in">
+                            14h30
+                            <span class="bubble__time">09:15</span>
+                        </div>
+                        <div class="bubble bubble--out">
+                            Confirmado ✅<br>
+                            <strong>Hoje · 14h30</strong> · Corte + barba<br>
+                            R. das Palmeiras, 122
+                            <span class="bubble__time">09:15 <span class="check">✓✓</span></span>
+                        </div>
+                        <div class="bubble bubble--in">
+                            valeu! 👊
+                            <span class="bubble__time">09:15</span>
+                        </div>
+                    </div>
+                    <div class="wa__input">
+                        <span style="color:#54656F">😊</span>
+                        <div class="wa__input-field">Mensagem</div>
+                        <div class="wa__input-mic">🎤</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     HOW IT WORKS
+     ============================================ -->
+<section class="section how" id="como-funciona">
+    <div class="container">
+        <div class="how__head">
+            <div>
+                <span class="eyebrow">Como funciona</span>
+                <h2>4 passos. <span style="color:#22C55E">Zero técnico.</span><br>Pronto em 10 minutos.</h2>
+            </div>
+            <p class="lead">
+                Sem app novo, sem treinamento, sem mudar de número. Em 10 minutos a Linka está respondendo no WhatsApp que você já usa.
+            </p>
+        </div>
+
+        <div class="how__steps">
+            <div class="step">
+                <div class="step__num">PASSO 01</div>
+                <div class="step__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="m9 12 2 2 4-4"/></svg>
+                </div>
+                <h3>Conecte em 30 segundos</h3>
+                <p>Escaneie o QR Code com o WhatsApp que você já usa. Sem app novo. Sem mudar seu número.</p>
+            </div>
+            <div class="step">
+                <div class="step__num">PASSO 02</div>
+                <div class="step__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="8" r="3"/><path d="M3 21v-2a4 4 0 0 1 4-4"/><path d="M14 7h7M14 11h5M14 15h4"/></svg>
+                </div>
+                <h3>Ensine o que ela precisa saber</h3>
+                <p>Seus preços, serviços e horários. Quanto mais você conta, melhor ela atende. Simples como conversar.</p>
+            </div>
+            <div class="step">
+                <div class="step__num">PASSO 03</div>
+                <div class="step__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M8.6 10.4 15.4 7.6M8.6 13.6l6.8 2.8"/></svg>
+                </div>
+                <h3>Ela assume. Você descansa.</h3>
+                <p>A partir daqui, Linka responde, vende e agenda sozinha. Você recebe o resumo no fim do dia.</p>
+            </div>
+            <div class="step">
+                <div class="step__num">PASSO 04</div>
+                <div class="step__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 16 4-4 4 4 6-6"/></svg>
+                </div>
+                <h3>Veja as vendas chegando</h3>
+                <p>Conversas, conversões e clientes novos em tempo real. Tudo numa tela. Sem surpresa.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     BENEFITS
+     ============================================ -->
+<section class="section" id="beneficios">
+    <div class="container">
+        <div class="benefits__head">
+            <span class="eyebrow">O que muda</span>
+            <h2>O que você ganha quando<br><span style="color:#22C55E">para de responder tudo sozinho.</span></h2>
+        </div>
+
+        <div class="benefits__grid">
+            <div class="benefit">
+                <div class="benefit__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <div>
+                    <h3>Nenhuma venda perdida por falta de resposta</h3>
+                    <p>Madrugada, domingo, feriado — toda mensagem respondida em segundos. O cliente que chegou, o cliente que ficou.</p>
+                </div>
+            </div>
+            <div class="benefit">
+                <div class="benefit__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round"><path d="M6 20V14M12 20V10M18 20V5"/></svg>
+                </div>
+                <div>
+                    <h3>Mais faturamento sem mais horas</h3>
+                    <p>A IA conduz do primeiro "oi" até o pagamento confirmado. Você não digita, não negocia, não agenda. O dinheiro entra mesmo assim.</p>
+                </div>
+            </div>
+            <div class="benefit">
+                <div class="benefit__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <div>
+                    <h3>Mais avaliações. Mais clientes novos.</h3>
+                    <p>Linka pede avaliação automaticamente após cada atendimento. Mais estrelas, mais ranqueamento, mais gente te encontrando antes do concorrente.</p>
+                </div>
+            </div>
+            <div class="benefit">
+                <div class="benefit__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+                </div>
+                <div>
+                    <h3>3 horas por dia de volta pra você</h3>
+                    <p>É o que o dono médio perde respondendo WhatsApp. Com Linka, esse tempo volta — pra crescer o negócio ou simplesmente viver.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- ============================================
+     TESTIMONIALS
+     ============================================ -->
+<section class="testimonials">
+    <div class="container">
+        <div class="testimonials__head">
+            <span class="eyebrow">Quem já usa</span>
+            <h2>Resultados reais. <span style="color:#22C55E">Nas palavras de quem usou.</span></h2>
+        </div>
+        <div class="testimonials__grid">
+            <div class="tcard">
+                <div class="tcard__quote">"Sexta à noite fui dormir cedo. Sábado de manhã, 3 pedidos confirmados me esperando. A Linka não para nunca."</div>
+                <div class="tcard__author">
+                    <img class="tcard__avatar" src="https://i.pravatar.cc/80?img=52" loading="lazy" alt="Rafael M." style="object-fit:cover;padding:0">
+                    <div>
+                        <div class="tcard__name">Rafael M.</div>
+                        <div class="tcard__role">Pizzaria Verona · SP</div>
+                    </div>
+                </div>
+                <div class="tcard__verified">✓ cliente verificado</div>
+            </div>
+            <div class="tcard">
+                <div class="tcard__quote">"Respondia 3h por dia no WhatsApp. Hoje não respondo nada — e o faturamento cresceu. Parece mentira, mas é Linka."</div>
+                <div class="tcard__author">
+                    <img class="tcard__avatar" src="https://i.pravatar.cc/80?img=5" loading="lazy" alt="Camila S." style="object-fit:cover;padding:0">
+                    <div>
+                        <div class="tcard__name">Camila S.</div>
+                        <div class="tcard__role">Studio de Estética · RJ</div>
+                    </div>
+                </div>
+                <div class="tcard__verified">✓ cliente verificado</div>
+            </div>
+            <div class="tcard">
+                <div class="tcard__quote">"Pensei que ia ser complicado. Ativei em 8 minutos. Na mesma tarde, clientes já sendo atendidos automaticamente."</div>
+                <div class="tcard__author">
+                    <img class="tcard__avatar" src="https://i.pravatar.cc/80?img=68" loading="lazy" alt="Diego P." style="object-fit:cover;padding:0">
+                    <div>
+                        <div class="tcard__name">Diego P.</div>
+                        <div class="tcard__role">Barbearia Norte · MG</div>
+                    </div>
+                </div>
+                <div class="tcard__verified">✓ cliente verificado</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     FINAL CTA
+     ============================================ -->
+<section class="final" id="preco">
+    <div class="container">
+        <div class="final__inner">
+            <h2>Cada dia sem resposta<br>é uma venda pro <span class="hl">concorrente.</span></h2>
+            <p>
+                Conecte hoje. Em 10 minutos a Linka já está atendendo seus clientes. Simples, rápido e sem complicação.
+            </p>
+            <div class="final__cta">
+                <a href="https://wa.me/5511972986819?text=Ol%C3%A1!%20%F0%9F%91%8B%20Quero%20automatizar%20meu%20WhatsApp%20e%20atender%20mais%20clientes.%20Pode%20me%20ajudar%3F" target="_blank" rel="noopener" class="btn btn--primary btn--lg">
+                    Começar agora
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+            <div class="final__note">Configuração em 10 minutos · Suporte humano incluído · Sem contrato de fidelidade</div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     TRUST BADGES
+     ============================================ -->
+<section class="trust-bar">
+    <div class="container">
+        <div class="trust-bar__grid">
+            <div class="trust-badge">
+                <div class="trust-badge__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                </div>
+                <div class="trust-badge__text">
+                    <strong>SSL 256-bit</strong>
+                    <span>Conexão criptografada</span>
+                </div>
+            </div>
+            <div class="trust-badge">
+                <div class="trust-badge__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                </div>
+                <div class="trust-badge__text">
+                    <strong>LGPD</strong>
+                    <span>Dados protegidos</span>
+                </div>
+            </div>
+            <div class="trust-badge">
+                <div class="trust-badge__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                </div>
+                <div class="trust-badge__text">
+                    <strong>WhatsApp Official</strong>
+                    <span>API homologada</span>
+                </div>
+            </div>
+            <div class="trust-badge">
+                <div class="trust-badge__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                </div>
+                <div class="trust-badge__text">
+                    <strong>99,9% Uptime</strong>
+                    <span>Disponível 24/7</span>
+                </div>
+            </div>
+            <div class="trust-badge">
+                <div class="trust-badge__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <div class="trust-badge__text">
+                    <strong>Dados no Brasil</strong>
+                    <span>Servidores locais</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     FOOTER
+     ============================================ -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer__top">
+            <div class="footer__brand">
+                <a href="#top" class="logo" aria-label="Linka">
+                    <span class="logo__img" role="img" aria-label="Linka"></span>
+                </a>
+                <p>A IA que não dorme, não erra e faz seu negócio crescer — mesmo quando você não está olhando.</p>
+            </div>
+            <div class="footer__col">
+                <h4>Produto</h4>
+                <ul>
+                    <li><a href="#como-funciona">Como funciona</a></li>
+                    <li><a href="#beneficios">Benefícios</a></li>
+                    <li><a href="#preco">Preço</a></li>
+                    <li><a href="https://wa.me/5511972986819?text=Ol%C3%A1!%20%F0%9F%91%8B%20Quero%20automatizar%20meu%20WhatsApp%20e%20atender%20mais%20clientes.%20Pode%20me%20ajudar%3F" target="_blank" rel="noopener">Falar com vendas</a></li>
+                </ul>
+            </div>
+            <div class="footer__col">
+                <h4>Empresa</h4>
+                <ul>
+                    <li><a href="#produto">Sobre a Linka</a></li>
+                    <li><a href="#beneficios">Cases</a></li>
+                    <li><a href="https://wa.me/5511972986819?text=Ol%C3%A1!%20%F0%9F%91%8B%20Quero%20automatizar%20meu%20WhatsApp%20e%20atender%20mais%20clientes.%20Pode%20me%20ajudar%3F" target="_blank" rel="noopener">Trabalhe conosco</a></li>
+                    <li><a href="https://wa.me/5511972986819?text=Ol%C3%A1!%20%F0%9F%91%8B%20Quero%20automatizar%20meu%20WhatsApp%20e%20atender%20mais%20clientes.%20Pode%20me%20ajudar%3F" target="_blank" rel="noopener">Contato</a></li>
+                </ul>
+            </div>
+            <div class="footer__col">
+                <h4>Suporte</h4>
+                <ul>
+                    <li><a href="https://wa.me/5511972986819?text=Ol%C3%A1!%20%F0%9F%91%8B%20Quero%20automatizar%20meu%20WhatsApp%20e%20atender%20mais%20clientes.%20Pode%20me%20ajudar%3F" target="_blank" rel="noopener">Central de ajuda</a></li>
+                    <li><a href="https://wa.me/5511972986819?text=Ol%C3%A1!%20%F0%9F%91%8B%20Quero%20automatizar%20meu%20WhatsApp%20e%20atender%20mais%20clientes.%20Pode%20me%20ajudar%3F" target="_blank" rel="noopener">Suporte via WhatsApp</a></li>
+                    <li><a href="#como-funciona">Como configurar</a></li>
+                    <li><a href="#preco">Planos</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <span>© 2026 Linka Tecnologia Ltda. Todos os direitos reservados.</span>
+            <div class="links">
+                <a href="javascript:void(0)">Privacidade</a>
+                <a href="javascript:void(0)">Termos</a>
+                <a href="javascript:void(0)">Cookies</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* -------------------------------------------------------
+     1. PAGE LOAD — stagger hero elements
+  ------------------------------------------------------- */
+  function initHeroLoad() {
+    // Double rAF ensures first paint is done before class is added
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        document.body.classList.add('page-loaded');
+      });
+    });
+
+    // Safety fallback: reveal hero elements if animation stalls
+    setTimeout(function () {
+      var heroEls = document.querySelectorAll(
+        '.hero__pill,.hero h1,.hero__lead,.hero__cta,.hero__trust,.hero__visual,.hero__copy>div'
+      );
+      heroEls.forEach(function (el) {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
+    }, 2200);
+  }
+
+  /* -------------------------------------------------------
+     2. SCROLL REVEAL — IntersectionObserver
+  ------------------------------------------------------- */
+  function initReveal() {
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('.reveal').forEach(function (el) {
+        el.classList.add('is-visible');
+      });
+      return;
+    }
+
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -48px 0px' }
+    );
+
+    document.querySelectorAll('.reveal').forEach(function (el) {
+      io.observe(el);
+    });
+  }
+
+  /* -------------------------------------------------------
+     3. AUTO-APPLY REVEAL CLASSES with stagger
+  ------------------------------------------------------- */
+  function applyRevealClasses() {
+    // Section header blocks reveal as a unit
+    [
+      '.problem__head',
+      '.solution__head',
+      '.how__head',
+      '.benefits__head',
+      '.testimonials__head',
+      '.final__inner',
+      '.logobar__row',
+      '.counter-row',
+    ].forEach(function (sel) {
+      var el = document.querySelector(sel);
+      if (el) el.classList.add('reveal');
+    });
+
+    // Cards with per-sibling stagger delay
+    [
+      '.problem__grid .problem__cell',
+      '.solution__features .feature',
+      '.how__steps .step',
+      '.testimonials__grid .tcard',
+      '.benefits__grid .benefit',
+    ].forEach(function (sel) {
+      document.querySelectorAll(sel).forEach(function (card, idx) {
+        card.classList.add('reveal');
+        card.style.transitionDelay = (idx * 0.09) + 's';
+      });
+    });
+  }
+
+  /* -------------------------------------------------------
+     4. NAV SHADOW on scroll
+  ------------------------------------------------------- */
+  function initNavScroll() {
+    var nav = document.querySelector('.nav');
+    if (!nav) return;
+    var active = false;
+    window.addEventListener('scroll', function () {
+      var should = window.scrollY > 24;
+      if (should === active) return;
+      active = should;
+      nav.style.boxShadow = active
+        ? '0 1px 0 rgba(0,0,0,.06), 0 6px 28px -6px rgba(0,0,0,.1)'
+        : '';
+    }, { passive: true });
+  }
+
+  /* -------------------------------------------------------
+     6. INIT
+  ------------------------------------------------------- */
+  function init() {
+    applyRevealClasses();
+    initReveal();
+    initNavScroll();
+    initHeroLoad();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+})();
+
+// Auto-scroll mobile carousels — infinite loop
+(function(){
+  var mq = window.matchMedia('(max-width: 768px)');
+  if(!mq.matches) return;
+
+  var carousels = [
+    { sel: '.solution__features', speed: 0.4 },
+    { sel: '.how__steps',         speed: 0.35 },
+    { sel: '.testimonials__grid', speed: 0.38 }
+  ];
+
+  carousels.forEach(function(cfg){
+    var el = document.querySelector(cfg.sel);
+    if(!el) return;
+
+    // Clone all children for seamless loop
+    var origChildren = Array.prototype.slice.call(el.children);
+    origChildren.forEach(function(child){
+      var clone = child.cloneNode(true);
+      clone.setAttribute('aria-hidden','true');
+      clone.classList.add('carousel-clone');
+      el.appendChild(clone);
+    });
+
+    var dragging = false;
+    var dragStartX = 0;
+    var dragStartScroll = 0;
+    var pos = 0;
+    var halfScroll = 0;
+    var raf = null;
+
+    el.style.scrollSnapType = 'none';
+    el.style.overflowX = 'hidden';
+
+    el.addEventListener('touchstart', function(e){
+      dragging = true;
+      dragStartX = e.touches[0].clientX;
+      dragStartScroll = pos;
+      if(raf){ cancelAnimationFrame(raf); raf = null; }
+    }, {passive:true});
+
+    el.addEventListener('touchmove', function(e){
+      if(!dragging) return;
+      var dx = dragStartX - e.touches[0].clientX;
+      pos = dragStartScroll + dx;
+      if(pos < 0) pos += halfScroll;
+      if(pos >= halfScroll) pos -= halfScroll;
+      el.scrollLeft = pos;
+    }, {passive:true});
+
+    el.addEventListener('touchend', function(){
+      dragging = false;
+      resume();
+    }, {passive:true});
+
+    function resume(){
+      if(raf) cancelAnimationFrame(raf);
+      function tick(){
+        if(!dragging){
+          pos += cfg.speed;
+          if(pos >= halfScroll) pos -= halfScroll;
+          el.scrollLeft = pos;
+        }
+        raf = requestAnimationFrame(tick);
+      }
+      raf = requestAnimationFrame(tick);
+    }
+
+    // Start after layout settles
+    setTimeout(function(){
+      halfScroll = el.scrollWidth / 2;
+      pos = 0;
+      resume();
+    }, 300);
+  });
+})();
+</script>
+
+<!-- ================================================
+     CHAT ANIMATION — primeiro celular apenas
+     ================================================ -->
+<script>
+(function () {
+  /* ── selectors ─────────────────────────────────── */
+  const firstPhone = document.querySelector('.phone');
+  if (!firstPhone) return;
+
+  const chat    = firstPhone.querySelector('.wa__chat');
+  const typing  = firstPhone.querySelector('.bubble--typing');
+  if (!chat) return;
+
+  /* ── collect real message bubbles ──────────────── */
+  const bubbles = Array.from(
+    chat.querySelectorAll('.bubble:not(.bubble--typing)')
+  );
+
+  /* ── helpers ────────────────────────────────────── */
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+
+  function jitter(ms, spread = 400) {
+    return ms + (Math.random() * spread * 2 - spread);
+  }
+
+  function typingDelay(el) {
+    const chars = el.innerText.replace(/\s+/g, ' ').trim().length;
+    return jitter(800 + chars * 35, 500);
+  }
+
+  function scrollBottom() {
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  /* ── reveal a bubble with fade + slide ─────────── */
+  function revealBubble(el) {
+    el.style.opacity    = '0';
+    el.style.transform  = 'translateY(10px)';
+    el.style.transition = 'opacity .32s ease, transform .32s ease';
+    el.style.display    = '';           // make it visible in DOM
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        el.style.opacity   = '1';
+        el.style.transform = 'translateY(0)';
+      })
+    );
+    scrollBottom();
+  }
+
+  /* ── send a message (reusable public API) ─────── */
+  async function sendMessage(text, type /* 'in' | 'out' */) {
+    const el = document.createElement('div');
+    el.className = `bubble bubble--${type}`;
+    el.innerHTML = text;
+    el.style.display = 'none';
+
+    if (typing) chat.insertBefore(el, typing);
+    else        chat.appendChild(el);
+
+    if (type === 'in') {
+      // IA digitando antes de responder
+      if (typing) typing.style.display = '';
+      scrollBottom();
+      await wait(typingDelay(el));
+      if (typing) typing.style.display = 'none';
+    } else {
+      // mensagem do cliente aparece rápido
+      await wait(jitter(400, 150));
+    }
+
+    revealBubble(el);
+    await wait(320); // wait for animation
+    return el;
+  }
+
+  /* ── initial setup: hide all, prep ──────────────── */
+  bubbles.forEach(b => { b.style.display = 'none'; });
+  if (typing) typing.style.display = 'none';
+
+  /* ── main sequence ───────────────────────────────── */
+  async function runChat() {
+    await wait(700); // initial pause before first message
+
+    for (const bubble of bubbles) {
+      const isIn = bubble.classList.contains('bubble--in');
+
+      if (isIn) {
+        // mensagem da IA: mostrar digitando... antes
+        if (typing) typing.style.display = '';
+        scrollBottom();
+        await wait(typingDelay(bubble));
+        if (typing) typing.style.display = 'none';
+      } else {
+        // mensagem do cliente: aparece rápido, sem indicador
+        await wait(jitter(400, 150));
+      }
+
+      revealBubble(bubble);
+      await wait(jitter(600, 200)); // pausa entre mensagens
+    }
+
+    // End: show typing indicator (AI about to reply)
+    await wait(1200);
+    if (typing) typing.style.display = '';
+    scrollBottom();
+  }
+
+  /* ── trigger when phone enters viewport ─────────── */
+  const observer = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      observer.disconnect();
+      runChat();
+    }
+  }, { threshold: 0.25 });
+
+  observer.observe(firstPhone);
+
+  /* ── expose for external use ─────────────────────── */
+  window.linkaChat = { sendMessage };
+})();
+</script>
+
+</body>
+</html>
+

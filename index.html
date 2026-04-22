@@ -49,7 +49,10 @@ body{
     font-size:16px;
     line-height:1.55;
     font-feature-settings:"ss01","cv11","cv02";
+    overscroll-behavior-x:none;
+    -webkit-tap-highlight-color:transparent;
 }
+button{touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
 img,svg{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
@@ -146,6 +149,9 @@ h3{font-size:clamp(22px,2vw,28px);letter-spacing:-.015em;line-height:1.2}
     backdrop-filter:saturate(180%) blur(14px);
     -webkit-backdrop-filter:saturate(180%) blur(14px);
     border-bottom:1px solid var(--line);
+    padding-left:env(safe-area-inset-left);
+    padding-right:env(safe-area-inset-right);
+    -webkit-transform:translateZ(0);
 }
 .nav__inner{
     display:flex;align-items:center;justify-content:space-between;
@@ -828,28 +834,42 @@ h3{font-size:clamp(22px,2vw,28px);letter-spacing:-.015em;line-height:1.2}
 }
 
 /* =========================================================
-   FINAL CTA
+   PRICING SECTION
    ========================================================= */
 .final{
-    padding:140px 0;
-    background:#fff;
+    padding:100px 0 120px;
+    background:#F9FAFB;
     text-align:center;
     border-bottom:1px solid var(--line);
 }
-.final__inner{max-width:780px;margin:0 auto}
-.final h2{
-    margin-bottom:24px;
-    font-size:clamp(40px,5vw,68px);
-}
-.final h2 .hl{color:var(--brand)}
-.final p{
-    font-size:19px;color:var(--muted);
-    max-width:560px;margin:0 auto 40px;
-    line-height:1.55;
-}
-.final__cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-.final__note{
-    margin-top:28px;font-size:13px;color:var(--muted);
+.final__head{max-width:640px;margin:0 auto 48px;}
+.final__head h2{font-size:clamp(32px,5vw,52px);margin-bottom:16px;}
+.final__head h2 .hl{color:var(--brand);}
+.final__head p{font-size:17px;color:var(--muted);line-height:1.55;}
+/* grid */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto;}
+.pricing-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:36px 32px;text-align:left;position:relative;}
+.pricing-card--popular{border-color:#22C55E;box-shadow:0 0 0 2px #22C55E;background:#F0FDF4;}
+.pricing-badge{display:inline-block;background:#22C55E;color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;margin-bottom:12px;}
+.pricing-card__name{font-size:22px;font-weight:800;color:var(--ink);margin-bottom:8px;}
+.pricing-card__desc{font-size:14px;color:var(--muted);line-height:1.5;margin-bottom:24px;}
+.pricing-card__price{display:flex;align-items:baseline;gap:4px;margin-bottom:28px;}
+.pricing-card__amount{font-size:44px;font-weight:800;color:var(--ink);line-height:1;transition:opacity .15s ease;}
+.pricing-card__period{font-size:15px;color:var(--muted);}
+.pricing-card__btn{display:block;width:100%;padding:14px;border-radius:12px;font-size:15px;font-weight:700;text-align:center;text-decoration:none;border:none;cursor:pointer;transition:opacity .15s;}
+.pricing-card__btn:hover{opacity:.85;}
+.pricing-card__btn--dark{background:#000;color:#fff;}
+.pricing-card__btn--green{background:#22C55E;color:#fff;}
+.pricing-divider{border:none;border-top:1px solid #EBEBEB;margin:24px 0;}
+.pricing-includes__title{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:14px;}
+.pricing-includes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
+.pricing-includes li{display:flex;align-items:flex-start;gap:8px;font-size:14px;color:var(--ink);}
+.check{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;min-width:18px;background:#22C55E;border-radius:50%;color:#fff;margin-top:1px;}
+/* mobile pricing */
+@media(max-width:900px){
+  .pricing-grid{grid-template-columns:1fr;max-width:480px;}
+  .pricing-card{padding:28px 24px;}
+  .pricing-card__amount{font-size:36px;}
 }
 
 /* =========================================================
@@ -1185,18 +1205,19 @@ h3{font-size:clamp(22px,2vw,28px);letter-spacing:-.015em;line-height:1.2}
     .tcard__role{font-size:11px}
     .tcard__verified{font-size:10px}
 
-    /* ---- Final CTA ---- */
     /* ---- Mid CTA Strip ---- */
     .mid-cta{padding:28px 0}
     .mid-cta__inner{flex-direction:column;align-items:stretch;gap:16px;text-align:center}
     .mid-cta__text{font-size:15px}
     .btn--md{width:100%;justify-content:center;padding:14px 24px}
 
-    .final{padding:52px 0}
-    .final h2{font-size:clamp(26px,7vw,36px);margin-bottom:14px}
-    .final p{font-size:15px;margin-bottom:24px}
-    .final__cta{flex-direction:column;align-items:stretch}
-    .final__note{font-size:12px;margin-top:20px}
+    /* ---- Pricing ---- */
+    .final{padding:52px 0 64px}
+    .final__head{margin-bottom:32px}
+    .final__head h2{font-size:clamp(26px,7vw,36px);margin-bottom:10px}
+    .final__head p{font-size:15px}
+    .pricing-grid{max-width:100%}
+    .pricing-card__btn{padding:13px}
 
     /* ---- Counter ---- */
     .counter-row{flex-direction:column;align-items:flex-start;gap:6px;margin-top:28px;padding-top:28px}
@@ -1475,7 +1496,7 @@ a:focus-visible, button:focus-visible {
                 Cada mensagem sem resposta é uma venda perdida. A Linka responde em segundos, fecha pedidos e agenda horários — sem você precisar tocar no celular.
             </p>
             <div class="hero__cta">
-                <a href="https://wa.me/5511972986819?text=Ol%C3%A1!%20%F0%9F%91%8B%20Quero%20automatizar%20meu%20WhatsApp%20e%20atender%20mais%20clientes.%20Pode%20me%20ajudar%3F" target="_blank" rel="noopener" class="btn btn--primary btn--lg">
+                <a href="#preco" class="btn btn--primary btn--lg">
                     Começar agora
                     <span class="arrow">→</span>
                 </a>
@@ -1887,18 +1908,76 @@ a:focus-visible, button:focus-visible {
      ============================================ -->
 <section class="final" id="preco">
     <div class="container">
-        <div class="final__inner">
-            <h2>Cada dia sem resposta<br>é uma venda pro <span class="hl">concorrente.</span></h2>
-            <p>
-                Conecte hoje. Em 10 minutos a Linka já está atendendo seus clientes. Simples, rápido e sem complicação.
-            </p>
-            <div class="final__cta">
-                <a href="https://wa.me/5511972986819?text=Ol%C3%A1!%20%F0%9F%91%8B%20Quero%20automatizar%20meu%20WhatsApp%20e%20atender%20mais%20clientes.%20Pode%20me%20ajudar%3F" target="_blank" rel="noopener" class="btn btn--primary btn--lg">
-                    Começar agora
-                    <span class="arrow">→</span>
-                </a>
+
+        <div class="final__head reveal">
+            <h2>Planos que cabem no seu <span class="hl">negócio</span></h2>
+            <p>Sem surpresas, sem contrato. Escolha o plano ideal e comece a atender mais em minutos.</p>
+        </div>
+
+        <div class="pricing-grid">
+
+            <!-- START -->
+            <div class="pricing-card reveal">
+                <div class="pricing-card__name">Start</div>
+                <div class="pricing-card__desc">O primeiro passo para automatizar seu atendimento e nunca mais perder um cliente.</div>
+                <div class="pricing-card__price">
+                    <span class="pricing-card__amount" id="price-starter">R$&nbsp;97</span>
+                    <span class="pricing-card__period">/mês</span>
+                </div>
+                <a href="https://invoice.infinitepay.io/plans/links-zap/dSJCn5jR" target="_blank" rel="noopener" class="pricing-card__btn pricing-card__btn--dark">Começar agora</a>
+                <hr class="pricing-divider">
+                <div class="pricing-includes__title">O plano inclui:</div>
+                <ul class="pricing-includes">
+                    <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Chatbot clássico</li>
+                    <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Respostas automáticas</li>
+                    <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Agenda integrada</li>
+                    <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Confirmação automática</li>
+                </ul>
             </div>
-            <div class="final__note">Configuração em 10 minutos · Suporte humano incluído · Sem contrato de fidelidade</div>
+
+            <!-- GROWTH (popular) -->
+            <div class="pricing-card pricing-card--popular reveal">
+                <span class="pricing-badge">Mais popular</span>
+                <div class="pricing-card__name">Growth</div>
+                <div class="pricing-card__desc">IA que conversa de forma natural, cresce sua presença online e traz mais clientes.</div>
+                <div class="pricing-card__price">
+                    <span class="pricing-card__amount" id="price-business">R$&nbsp;197</span>
+                    <span class="pricing-card__period">/mês</span>
+                </div>
+                <a href="https://invoice.infinitepay.io/plans/links-zap/xf4N2ChCp" target="_blank" rel="noopener" class="pricing-card__btn pricing-card__btn--green">Começar agora</a>
+                <hr class="pricing-divider">
+                <div class="pricing-includes__title">Tudo do Start, mais:</div>
+                <ul class="pricing-includes">
+                    <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Assistente com IA</li>
+                    <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Respostas mais naturais</li>
+                    <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Otimização no Google Maps</li>
+                    <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Fluxos avançados</li>
+                    <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Relatórios e insights</li>
+                    <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Suporte prioritário</li>
+                </ul>
+            </div>
+
+            <!-- DOMINAÇÃO -->
+            <div class="pricing-card reveal">
+                <div class="pricing-card__name">Dominação</div>
+                <div class="pricing-card__desc">O pacote completo para quem quer dominar o mercado com IA treinada para vender.</div>
+                <div class="pricing-card__price">
+                    <span class="pricing-card__amount" id="price-enterprise">R$&nbsp;397</span>
+                    <span class="pricing-card__period">/mês</span>
+                </div>
+                <a href="https://invoice.infinitepay.io/plans/links-zap/2NxhjFjWL" target="_blank" rel="noopener" class="pricing-card__btn pricing-card__btn--dark">Falar com vendas</a>
+                <hr class="pricing-divider">
+                <div class="pricing-includes__title">Tudo do Growth, mais:</div>
+                <ul class="pricing-includes">
+                    <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Site profissional</li>
+                    <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>IA avançada treinada para vender</li>
+                    <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Relatórios avançados</li>
+                    <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Integrações avançadas</li>
+                    <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Fluxos completos e personalizados</li>
+                    <li><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Suporte prioritário dedicado</li>
+                </ul>
+            </div>
+
         </div>
     </div>
 </section>
@@ -2075,7 +2154,7 @@ a:focus-visible, button:focus-visible {
       '.how__head',
       '.benefits__head',
       '.testimonials__head',
-      '.final__inner',
+      '.final__head',
       '.logobar__row',
       '.counter-row',
     ].forEach(function (sel) {
@@ -2116,13 +2195,42 @@ a:focus-visible, button:focus-visible {
   }
 
   /* -------------------------------------------------------
-     6. INIT
+     7. iOS FIXES
   ------------------------------------------------------- */
+  function initIOS() {
+    // --vh: fix iOS Safari 100vh (address bar shifts layout)
+    function setVH() {
+      document.documentElement.style.setProperty('--vh', (window.innerHeight * 0.01) + 'px');
+    }
+    setVH();
+    window.addEventListener('resize', setVH, { passive: true });
+
+    // Smooth scroll polyfill for iOS Safari < 15.4
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+      anchor.addEventListener('click', function (e) {
+        var id = this.getAttribute('href');
+        if (id === '#') return;
+        var target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Close mobile nav if open
+        var links = document.querySelector('.nav__links');
+        var burger = document.querySelector('.nav__burger');
+        if (links && links.classList.contains('open')) {
+          links.classList.remove('open');
+          if (burger) burger.classList.remove('open');
+        }
+      });
+    });
+  }
+
   function init() {
     applyRevealClasses();
     initReveal();
     initNavScroll();
     initHeroLoad();
+    initIOS();
   }
 
   if (document.readyState === 'loading') {
@@ -2332,6 +2440,7 @@ a:focus-visible, button:focus-visible {
   window.linkaChat = { sendMessage };
 })();
 </script>
+
 
 </body>
 </html>

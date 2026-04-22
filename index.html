@@ -40,7 +40,7 @@
    RESET
    ========================================================= */
 *,*::before,*::after{box-sizing:border-box}
-html,body{margin:0;padding:0}
+html,body{margin:0;padding:0;overflow-x:hidden}
 html{-webkit-text-size-adjust:100%;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 body{
     font-family:var(--body);
@@ -166,18 +166,15 @@ h3{font-size:clamp(22px,2vw,28px);letter-spacing:-.015em;line-height:1.2}
 }
 .logo__img{
     display:block;
-    width:140px;
-    height:44px;
-    background-image:url('images/Design%20sem%20nome.svg');
-    background-size:142px 142px;
-    background-repeat:no-repeat;
-    background-position:7px -46px;
+    height:48px;
+    width:auto;
+    object-fit:contain;
+    /* remove o quadrado branco do fundo do SVG sobre fundo claro */
+    mix-blend-mode:multiply;
 }
 .footer__brand .logo__img{
-    width:170px;
-    height:54px;
-    background-size:175px 175px;
-    background-position:7px -57px;
+    height:60px;
+    width:auto;
 }
 .logo__mark{
     width:30px;height:30px;border-radius:8px;
@@ -234,8 +231,7 @@ h3{font-size:clamp(22px,2vw,28px);letter-spacing:-.015em;line-height:1.2}
 .hero{
     position:relative;
     padding:120px 0 140px;
-    overflow-x:hidden;
-    overflow-y:visible;
+    overflow:hidden;
     border-bottom:1px solid var(--line);
 }
 .hero__grid{
@@ -323,10 +319,7 @@ h3{font-size:clamp(22px,2vw,28px);letter-spacing:-.015em;line-height:1.2}
         inset 1.5px 0 0 rgba(255,255,255,.04),
         inset -1.5px 0 0 rgba(255,255,255,.04),
         /* hairline metálico externo */
-        0 0 0 1px rgba(255,255,255,.05),
-        /* drop shadow flutuante realista */
-        0 32px 60px -18px rgba(0,0,0,.28),
-        0 14px 28px -10px rgba(0,0,0,.16);
+        0 0 0 1px rgba(255,255,255,.05);
 }
 /* Dynamic Island style notch — pill com speaker e câmera */
 .phone::before{
@@ -571,8 +564,12 @@ h3{font-size:clamp(22px,2vw,28px);letter-spacing:-.015em;line-height:1.2}
 .phone__metric .value .up{color:#22C55E;font-size:14px}
 
 @media (max-width:980px){
-    .phone__badge{right:0}
+    .phone__badge{right:0;top:24px}
     .phone__metric{left:0}
+}
+@media (max-width:768px){
+    .phone__badge{right:6px;top:22px;font-size:10px;padding:6px 10px;gap:6px}
+    .phone__metric{display:none}
 }
 
 /* =========================================================
@@ -846,9 +843,66 @@ h3{font-size:clamp(22px,2vw,28px);letter-spacing:-.015em;line-height:1.2}
 .final__head h2{font-size:clamp(32px,5vw,52px);margin-bottom:16px;}
 .final__head h2 .hl{color:var(--brand);}
 .final__head p{font-size:17px;color:var(--muted);line-height:1.55;}
-/* grid */
+/* grid — desktop: 3 colunas lado a lado */
 .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto;}
 .pricing-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:36px 32px;text-align:left;position:relative;}
+
+/* plan toggle — pílula fluida com indicador que desliza */
+.plan-toggle{
+    display:none;
+    position:relative;
+    margin:0 auto 22px;
+    background:#F4F4F5;
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:4px;
+    gap:0;
+    max-width:340px;
+    width:100%;
+    overflow:hidden;
+}
+.plan-toggle::before{
+    content:"";
+    position:absolute;
+    top:4px;
+    left:4px;
+    width:calc((100% - 8px) / 3);
+    height:calc(100% - 8px);
+    background:#fff;
+    border-radius:100px;
+    box-shadow:0 1px 3px rgba(0,0,0,.10), 0 0.5px 1px rgba(0,0,0,.05);
+    transform:translate3d(0,0,0);
+    transition:transform .45s cubic-bezier(0.22,1,0.36,1);
+    z-index:0;
+    pointer-events:none;
+    will-change:transform;
+}
+.plan-toggle[data-active="1"]::before{transform:translate3d(100%,0,0);}
+.plan-toggle[data-active="2"]::before{transform:translate3d(200%,0,0);}
+.plan-toggle__btn{
+    flex:1;
+    position:relative;
+    z-index:1;
+    background:transparent;
+    border:none;
+    padding:11px 6px;
+    font-size:13px;
+    font-weight:700;
+    color:var(--muted);
+    border-radius:100px;
+    cursor:pointer;
+    transition:color .3s ease, transform .25s cubic-bezier(0.22,1,0.36,1);
+    font-family:inherit;
+    -webkit-tap-highlight-color:transparent;
+}
+.plan-toggle__btn.active{color:var(--ink);}
+.plan-toggle__btn:active{transform:scale(.96);}
+/* fade sutil no conteúdo do card ao trocar */
+.pricing-grid > .pricing-card.is-active{animation:planFade .45s cubic-bezier(0.22,1,0.36,1) both;}
+@keyframes planFade{
+    from{opacity:0;transform:translateY(6px) scale(.985);}
+    to{opacity:1;transform:translateY(0) scale(1);}
+}
 .pricing-card--popular{border-color:#22C55E;box-shadow:0 0 0 2px #22C55E;background:#F0FDF4;}
 .pricing-badge{display:inline-block;background:#22C55E;color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;margin-bottom:12px;}
 .pricing-card__name{font-size:22px;font-weight:800;color:var(--ink);margin-bottom:8px;}
@@ -865,11 +919,16 @@ h3{font-size:clamp(22px,2vw,28px);letter-spacing:-.015em;line-height:1.2}
 .pricing-includes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
 .pricing-includes li{display:flex;align-items:flex-start;gap:8px;font-size:14px;color:var(--ink);}
 .check{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;min-width:18px;background:#22C55E;border-radius:50%;color:#fff;margin-top:1px;}
-/* mobile pricing */
+/* mobile pricing — carrossel com toggle (1 card por vez) */
 @media(max-width:900px){
-  .pricing-grid{grid-template-columns:1fr;max-width:480px;}
-  .pricing-card{padding:28px 24px;}
-  .pricing-card__amount{font-size:36px;}
+  .pricing-grid{gap:14px;}
+}
+@media(max-width:720px){
+  .plan-toggle{display:flex;}
+  .pricing-grid{grid-template-columns:1fr;max-width:420px;gap:0;}
+  .pricing-grid > .pricing-card{display:none;}
+  .pricing-grid > .pricing-card.is-active{display:block;}
+  .pricing-card{padding:28px 22px;}
 }
 
 /* =========================================================
@@ -1093,8 +1152,10 @@ h3{font-size:clamp(22px,2vw,28px);letter-spacing:-.015em;line-height:1.2}
     /* ---- Hero: copy-first, phone hidden ---- */
     .hero{padding:36px 0 44px}
     .hero__grid{grid-template-columns:1fr;gap:0}
-    .hero__visual{display:block;margin-top:24px;text-align:center}
-    .hero__visual .phone{width:78vw;max-width:78vw;margin:0 auto;display:block}
+    .hero__visual{display:block;margin-top:24px;text-align:center;overflow:hidden}
+    .hero__visual .phone{width:72vw;max-width:320px;margin:0 auto;display:block}
+    .hero__visual .phone__badge{right:6px;top:22px;font-size:10px;padding:7px 10px;gap:6px;max-width:calc(100% - 12px)}
+    .hero__visual .phone__metric{display:none}
     .hero__pill{font-size:12px;padding:6px 12px;margin-bottom:18px}
     .hero h1{margin-bottom:14px}
     .hero__lead{margin-bottom:24px;max-width:100%}
@@ -1239,9 +1300,13 @@ h3{font-size:clamp(22px,2vw,28px);letter-spacing:-.015em;line-height:1.2}
 
 /* ---- Phone: mobile adjustments ---- */
 @media(max-width:768px){
-    .hero__visual .phone__badge{font-size:10px;padding:7px 10px;top:22px;right:-10px;gap:6px}
+    /* Frame do iPhone mantido — só esconde o Dynamic Island (fica estranho pequeno) */
+    .hero__visual .phone::before,.hero__visual .phone::after{display:none}
+    /* Borda original do iPhone (14px) mantida */
+    /* Sem notch: top bar compacta */
+    .hero__visual .wa__top{padding:14px 10px 10px}
+    .hero__visual .phone__badge{font-size:10px;padding:7px 10px;top:10px;right:8px;gap:6px;z-index:10}
     .hero__visual .phone__badge .pulse{width:6px;height:6px}
-    .hero__visual .wa__top{padding:38px 10px 10px}
     .hero__visual .wa__user-name{font-size:13px}
     .hero__visual .wa__user-status{font-size:10px}
     .hero__visual .wa__avatar{width:30px;height:30px}
@@ -1284,14 +1349,7 @@ h3{font-size:clamp(22px,2vw,28px);letter-spacing:-.015em;line-height:1.2}
 .page-loaded .hero__trust      { animation: heroReveal 0.60s cubic-bezier(0.16,1,0.3,1) 0.44s both; }
 .page-loaded .hero__visual     { animation: heroReveal 0.90s cubic-bezier(0.16,1,0.3,1) 0.18s both; }
 
-/* ---- Hero phone: subtle float ---- */
-@keyframes phoneFloat {
-    0%,100% { transform: translateY(0); }
-    50%      { transform: translateY(-9px); }
-}
-.page-loaded .hero__visual .phone {
-    animation: phoneFloat 6.5s cubic-bezier(0.37,0,0.63,1) 1.15s infinite;
-}
+/* ---- Hero phone: parado (sem animação de flutuação) ---- */
 
 /* ---- Scroll reveal base ---- */
 .reveal {
@@ -1463,7 +1521,7 @@ a:focus-visible, button:focus-visible {
 <header class="nav">
     <div class="container nav__inner">
         <a href="#top" class="logo" aria-label="Linka">
-            <span class="logo__img" role="img" aria-label="Linka"></span>
+            <img src="images/logo-new.svg" class="logo__img" alt="Linka">
         </a>
         <nav class="nav__links" aria-label="Principal">
             <a href="#produto">Produto</a>
@@ -1914,6 +1972,12 @@ a:focus-visible, button:focus-visible {
             <p>Sem surpresas, sem contrato. Escolha o plano ideal e comece a atender mais em minutos.</p>
         </div>
 
+        <div class="plan-toggle" role="tablist" aria-label="Escolher plano">
+            <button type="button" class="plan-toggle__btn" data-plan="0" role="tab">Start</button>
+            <button type="button" class="plan-toggle__btn active" data-plan="1" role="tab" aria-selected="true">Growth</button>
+            <button type="button" class="plan-toggle__btn" data-plan="2" role="tab">Dominação</button>
+        </div>
+
         <div class="pricing-grid">
 
             <!-- START -->
@@ -1936,7 +2000,7 @@ a:focus-visible, button:focus-visible {
             </div>
 
             <!-- GROWTH (popular) -->
-            <div class="pricing-card pricing-card--popular reveal">
+            <div class="pricing-card pricing-card--popular is-active reveal">
                 <span class="pricing-badge">Mais popular</span>
                 <div class="pricing-card__name">Growth</div>
                 <div class="pricing-card__desc">IA que conversa de forma natural, cresce sua presença online e traz mais clientes.</div>
@@ -2045,7 +2109,7 @@ a:focus-visible, button:focus-visible {
         <div class="footer__top">
             <div class="footer__brand">
                 <a href="#top" class="logo" aria-label="Linka">
-                    <span class="logo__img" role="img" aria-label="Linka"></span>
+                    <img src="images/logo-new.svg" class="logo__img" alt="Linka">
                 </a>
                 <p>A IA que não dorme, não erra e faz seu negócio crescer — mesmo quando você não está olhando.</p>
             </div>
@@ -2225,12 +2289,38 @@ a:focus-visible, button:focus-visible {
     });
   }
 
+  function initPlanToggle() {
+    var toggle = document.querySelector('.plan-toggle');
+    var btns = document.querySelectorAll('.plan-toggle__btn');
+    var cards = document.querySelectorAll('.pricing-grid > .pricing-card');
+    if (!toggle || !btns.length || !cards.length) return;
+    // estado inicial: sincroniza data-active com o botão que já está active no HTML
+    var initial = document.querySelector('.plan-toggle__btn.active');
+    toggle.setAttribute('data-active', initial ? initial.getAttribute('data-plan') : '0');
+    btns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var idx = btn.getAttribute('data-plan');
+        if (toggle.getAttribute('data-active') === idx) return;
+        toggle.setAttribute('data-active', idx);
+        btns.forEach(function (b) { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        var idxNum = parseInt(idx, 10);
+        cards.forEach(function (c, i) {
+          if (i === idxNum) c.classList.add('is-active');
+          else c.classList.remove('is-active');
+        });
+      });
+    });
+  }
+
   function init() {
     applyRevealClasses();
     initReveal();
     initNavScroll();
     initHeroLoad();
     initIOS();
+    initPlanToggle();
   }
 
   if (document.readyState === 'loading') {
